@@ -1,4 +1,6 @@
 import time
+
+from cv2 import sampsonDistance
 import mousestuff as ms
 import screenstuff as ss
 import gamedata as gd
@@ -10,61 +12,12 @@ sleep_newmenu = 0.50 #0.50
 # -------------------------------
 
 # ---------------------------------------------------------
-# Game Functions
+# Global Functions
 # ---------------------------------------------------------
 def buyBusinesses():    
-    global screen
-    screen = ss.screenGrab((0, 0, 0, 0))
-
-    # lemonaide stand
-    ms.setMousePos(gd.lemonaide.cord_buy)
-    ms.leftClick()
-    time.sleep(sleep_samemenu)
-    
-    # newspaper delivery
-    ms.setMousePos(gd.newspaper.cord_buy)
-    ms.leftClick()
-    time.sleep(sleep_samemenu)
-    
-    # car wash
-    ms.setMousePos(gd.car.cord_buy)
-    ms.leftClick()
-    time.sleep(sleep_samemenu)
-    
-    # pizza delivery
-    ms.setMousePos(gd.pizza.cord_buy)
-    ms.leftClick()
-    time.sleep(sleep_samemenu)
-    
-    # donut shop
-    ms.setMousePos(gd.donut.cord_buy)
-    ms.leftClick()
-    time.sleep(sleep_samemenu)
-    
-    # shrimp boat
-    ms.setMousePos(gd.shrimp.cord_buy)
-    ms.leftClick()
-    time.sleep(sleep_samemenu)
-    
-    # hockey team
-    ms.setMousePos(gd.hockey.cord_buy)
-    ms.leftClick()
-    time.sleep(sleep_samemenu)
-    
-    # movie studio
-    ms.setMousePos(gd.movie.cord_buy)
-    ms.leftClick()
-    time.sleep(sleep_samemenu)
-    
-    # bank (just bank)
-    ms.setMousePos(gd.bank.cord_buy)
-    ms.leftClick()
-    time.sleep(sleep_samemenu)
-    
-    # oil company
-    ms.setMousePos(gd.oil.cord_buy)
-    ms.leftClick()
-    time.sleep(sleep_samemenu)
+    for cur_business in gd.businessList:        # for every business, click on their buy button
+        ms.clickPos(cur_business.cord_buy)
+        time.sleep(sleep_samemenu)
 
 def buyManagers():
     screen = ss.screenGrab((0, 0, 0, 0))
@@ -176,65 +129,79 @@ def setBuyMax():
 def manualRunBusinesses():
     screen = ss.screenGrab((0, 0, 0, 0)) # get the current state of the screen
     
-    if screen.getpixel(gd.lemonaide.cord_run) == gd.lemonaide.color_idle:
-        print('manually running lemonaid')
-        ms.setMousePos(gd.lemonaide.cord_run)
-        ms.leftClick()
-        time.sleep(sleep_samemenu)
+    for cur_business in gd.businessList:
+        if screen.getpixel(cur_business.cord_run) == cur_business.color_idle:
+            print('manually running ' + cur_business.name)
+            ms.clickPos(cur_business.cord_run)
+            time.sleep(sleep_samemenu)
 
-    if screen.getpixel(gd.newspaper.cord_run) == gd.newspaper.color_idle:
-        print('manually running newspaper')
-        ms.setMousePos(gd.newspaper.cord_run)
-        ms.leftClick()
-        time.sleep(sleep_samemenu)
+    # if screen.getpixel(gd.lemonaide.cord_run) == gd.lemonaide.color_idle:
+    #     print('manually running lemonaid')
+    #     ms.setMousePos(gd.lemonaide.cord_run)
+    #     ms.leftClick()
+    #     time.sleep(sleep_samemenu)
 
-    if screen.getpixel(gd.car.cord_run) == gd.car.color_idle:
-        print('manually running car')
-        ms.setMousePos(gd.car.cord_run)
-        ms.leftClick()
-        time.sleep(sleep_samemenu)
+    # if screen.getpixel(gd.newspaper.cord_run) == gd.newspaper.color_idle:
+    #     print('manually running newspaper')
+    #     ms.setMousePos(gd.newspaper.cord_run)
+    #     ms.leftClick()
+    #     time.sleep(sleep_samemenu)
 
-    if screen.getpixel(gd.pizza.cord_run) == gd.pizza.color_idle:
-        print('manually running pizza')
-        ms.setMousePos(gd.pizza.cord_run)
-        ms.leftClick()
-        time.sleep(sleep_samemenu)
+    # if screen.getpixel(gd.car.cord_run) == gd.car.color_idle:
+    #     print('manually running car')
+    #     ms.setMousePos(gd.car.cord_run)
+    #     ms.leftClick()
+    #     time.sleep(sleep_samemenu)
 
-    if screen.getpixel(gd.donut.cord_run) == gd.donut.color_idle:
-        print('manually running donut')
-        ms.setMousePos(gd.donut.cord_run)
-        ms.leftClick()
-        time.sleep(sleep_samemenu)
+    # if screen.getpixel(gd.pizza.cord_run) == gd.pizza.color_idle:
+    #     print('manually running pizza')
+    #     ms.setMousePos(gd.pizza.cord_run)
+    #     ms.leftClick()
+    #     time.sleep(sleep_samemenu)
 
-    if screen.getpixel(gd.shrimp.cord_run) == gd.shrimp.color_idle:
-        print('manually running shrimp')
-        ms.setMousePos(gd.shrimp.cord_run)
-        ms.leftClick()
-        time.sleep(sleep_samemenu)
+    # if screen.getpixel(gd.donut.cord_run) == gd.donut.color_idle:
+    #     print('manually running donut')
+    #     ms.setMousePos(gd.donut.cord_run)
+    #     ms.leftClick()
+    #     time.sleep(sleep_samemenu)
 
-    if screen.getpixel(gd.hockey.cord_run) == gd.hockey.color_idle:
-        print('manually running hockey')
-        ms.setMousePos(gd.hockey.cord_run)
-        ms.leftClick()
-        time.sleep(sleep_samemenu)
+    # if screen.getpixel(gd.shrimp.cord_run) == gd.shrimp.color_idle:
+    #     print('manually running shrimp')
+    #     ms.setMousePos(gd.shrimp.cord_run)
+    #     ms.leftClick()
+    #     time.sleep(sleep_samemenu)
 
-    if screen.getpixel(gd.movie.cord_run) == gd.movie.color_idle:
-        print('manually running movie')
-        ms.setMousePos(gd.movie.cord_run)
-        ms.leftClick()
-        time.sleep(sleep_samemenu)
+    # if screen.getpixel(gd.hockey.cord_run) == gd.hockey.color_idle:
+    #     print('manually running hockey')
+    #     ms.setMousePos(gd.hockey.cord_run)
+    #     ms.leftClick()
+    #     time.sleep(sleep_samemenu)
 
-    if screen.getpixel(gd.bank.cord_run) == gd.bank.color_idle:
-        print('manually running bank')
-        ms.setMousePos(gd.bank.cord_run)
-        ms.leftClick()
-        time.sleep(sleep_samemenu)
+    # if screen.getpixel(gd.movie.cord_run) == gd.movie.color_idle:
+    #     print('manually running movie')
+    #     ms.setMousePos(gd.movie.cord_run)
+    #     ms.leftClick()
+    #     time.sleep(sleep_samemenu)
 
-    if screen.getpixel(gd.oil.cord_run) == gd.oil.color_idle:
-        print('manually running oil')
-        ms.setMousePos(gd.oil.cord_run)
-        ms.leftClick()
-        time.sleep(sleep_samemenu)
+    # if screen.getpixel(gd.bank.cord_run) == gd.bank.color_idle:
+    #     print('manually running bank')
+    #     ms.setMousePos(gd.bank.cord_run)
+    #     ms.leftClick()
+    #     time.sleep(sleep_samemenu)
+
+    # if screen.getpixel(gd.oil.cord_run) == gd.oil.color_idle:
+    #     print('manually running oil')
+    #     ms.setMousePos(gd.oil.cord_run)
+    #     ms.leftClick()
+    #     time.sleep(sleep_samemenu)
+
+def closePopup():
+    ms.clickPos(gd.popup_insider_cord_exit) # verified insider will draw over hot
+    time.sleep(sleep_newmenu)
+    ms.clickPos(gd.popup_hot_cord_exit)     # UNVERIFIED if hot will draw over moon
+    time.sleep(sleep_newmenu)
+    ms.clickPos(gd.popup_moon_cord_exit)    # UNVERIFIED if moon will draw over hot or insider
+    time.sleep(sleep_newmenu)
 
 def runLoop():
     setBuyMax()
