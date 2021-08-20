@@ -4,23 +4,21 @@ August 2021
 Window Resolution: 1920x1080 native, 1600x900 window
 
 TODO:
-OCR for game data
--get businesses count
---calculate time_current from count
--get buninesses revenue_current
+verify new version of ga.manualRunBusinesses() actually runs businesses
+move over to ms.clickPos()
 
--calculate revenue per second
---get revenue per cycle
-
-add more game data
--earth revenue upgrades
--earth time upgrades
--moon businesses
-
-check for and close popups, like events and deals
 angel reset on earth
 only buy angel upgrades and managers after angel reset
 change planets
+
+OCR for game data
+-get buninesses revenue_current
+-calculate revenue per second (rps)
+
+add more game data
+-earth revenue upgrades # this is only needed if you calculate revenue based on revenue_initial. you can just OCR the current revenue per cycle
+-moon businesses
+-mars businesses
 
 buy businesses on moon
 buy managers on moon
@@ -36,6 +34,7 @@ angel reset on mars
 """
 
 from screenstuff import getBusinessCount, screenGrab
+import screenstuff as ss
 import gamedata as gd
 import gameactions as ga
 import time
@@ -43,17 +42,21 @@ import time
 
 def main():
     
-    #buyBusinesses()
+    # ga.buyBusinesses()
     #buyManagers()
     #buyCashUpgrades()
     #setBuyMax()
     #manualRunBusinesses()
     # pass
-    # ga.runLoop()
+    ga.runLoop()
     # getBusinessCount(gd.newspaper)
-    gd.setBusinessesCount()
-    gd.setTimeMultipliers()
-    # screenGrab((0, 0, 0, 0))
+    # screen = screenGrab((0, 0, 0, 0))
+
+    # gd.setBusinessesCount()
+    # gd.setTimeMultipliers()
+
+    # ss.popupCheck()
+    
 
 if __name__ == '__main__':
     main()
