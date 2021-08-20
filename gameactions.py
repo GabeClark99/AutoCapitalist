@@ -19,24 +19,56 @@ def buyBusinesses():
         ms.clickPos(cur_business.cord_buy)
         time.sleep(sleep_samemenu)
 
-def buyManagers():
-    screen = ss.screenGrab((0, 0, 0, 0))
+def openMenu(menu_name):
+    if menu_name == "upgrades":
+        ms.clickPos(gd.upgrades.cord_open)      # click on the button to open the upgrades menu
+        time.sleep(sleep_newmenu)               # wait for the screen to change
+        screen = ss.screenGrab((0,0,0,0))       # grab a snap of the entire screen
 
-##    print('ma_menu color: ' + str(screen.getpixel(gd.managers.cord_open)))   
-    if screen.getpixel(gd.managers.cord_open) == gd.managers.color_open_on:      # if the managers menu icon is orange...
-        print('THERE ARE MANAGERS TO BUY')
-        ms.setMousePos(gd.managers.cord_open)                                   # hover over the managers menu icon
-        ms.leftClick()                                                 # click the managers menu icon
-        time.sleep(sleep_newmenu)                                   # wait for the screen to update
-
-        screen = ss.screenGrab((0, 0, 0, 0))                                       # get the new state of the screen
-##        print('ma_buy color: ' + str(screen.getpixel(gd.managers.cord_buy)))
-        while screen.getpixel(gd.managers.cord_buy) != gd.managers.color_buy_on and screen.getpixel(gd.managers.cord_buy) != gd.managers.color_buy_off: # while the screen isn't fully loaded...
-            print('-the managers screen hasn\'t loaded yet') 
+        while (screen.getpixel(gd.upgrades.cord_buy) != gd.upgrades.color_buy_on and 
+        screen.getpixel(gd.upgrades.cord_buy) != gd.upgrades.color_buy_off): # while the screen isn't fully loaded...
+            print('-the upgrades screen hasn\'t loaded yet')        #-------------DEBUGGING
             time.sleep(sleep_newmenu)
             screen = ss.screenGrab((0, 0, 0, 0))
-##            print('ma_buy color: ' + str(screen.getpixel(gd.managers.cord_buy)))   
-        print('-the managers screen has loaded')
+            # print('gd.upgrades.cord_buy color: ' + str(screen.getpixel(gd.upgrades.cord_buy)))
+        print('-the upgrades screen has loaded')            #-------------DEBUGGING
+
+    elif menu_name == "managers":
+        ms.clickPos(gd.managers.cord_open)
+        time.sleep(sleep_newmenu)
+        screen = ss.screenGrab((0,0,0,0))
+
+        while (screen.getpixel(gd.managers.cord_buy) != gd.managers.color_buy_on and 
+        screen.getpixel(gd.managers.cord_buy) != gd.managers.color_buy_off): # while the screen isn't fully loaded...
+            print('-the managers screen hasn\'t loaded yet')            #------------------DEBUGGING
+            time.sleep(sleep_newmenu)
+            screen = ss.screenGrab((0, 0, 0, 0))
+            # print('gd.managers.cord_buy color: ' + str(screen.getpixel(gd.managers.cord_buy)))   
+        print('-the managers screen has loaded')            #-----------DEBUGGING
+
+    elif menu_name == "investors":
+        ms.clickPos(gd.investors.cord_open)
+        time.sleep(sleep_newmenu)
+        screen = ss.screenGrab((0,0,0,0))
+
+        while (screen.getpixel(gd.investors.cord_buy) != gd.investors.color_buy_on): # the on and off colors for investors are the same regardless of angels
+            print('-the investors screen hasn\'t loaded yet')            #------------------DEBUGGING
+            time.sleep(sleep_newmenu)
+            screen = ss.screenGrab((0, 0, 0, 0))
+            # print('gd.investors.cord_buy color color: ' + str(screen.getpixel(gd.investors.cord_buy)))   
+        print('-the investors screen has loaded')            #-----------DEBUGGING
+
+
+    else:
+        print("-----ERROR (ss.checkMenuOpen): INVALID MENU NAME-----")
+
+def buyManagers():
+    screen = ss.screenGrab((0,0,0,0))
+
+##    print('ma_menu color: ' + str(screen.getpixel(gd.managers.cord_open)))   
+    if screen.getpixel(gd.managers.cord_open) == gd.managers.color_open_on or True:      # if the managers menu icon is orange... #----------DEBUGGING
+        print('THERE ARE MANAGERS TO BUY')
+        openMenu("managers")
         
         ms.setMousePos(gd.managers.cord_buy)                                    # hover over the manager buy icon
 ##        print('ma_buy color: ' + str(screen.getpixel(gd.managers.cord_buy))) 
@@ -81,20 +113,9 @@ def buyCashUpgrades():
     screen = ss.screenGrab((0, 0, 0, 0))   # get the current state of the screen
     
 ##    print('up_menu color: ' + str(screen.getpixel(gd.upgrades.cord_open)))
-    if screen.getpixel(gd.upgrades.cord_open) == gd.upgrades.color_open_on:       # if the upgrade menu button is orange... 
+    if screen.getpixel(gd.upgrades.cord_open) == gd.upgrades.color_open_on:       # if the upgrade menu button is orange...
         print('THERE ARE UPGRADES TO BUY')
-        ms.setMousePos(gd.upgrades.cord_open)                                   # hover over the upgrades menu icon
-        ms.leftClick()                                                 # click the upgrades menu icon
-        time.sleep(sleep_newmenu)                                   # wait for the screen to update
-
-        screen = ss.screenGrab((0, 0, 0, 0))                                       # get the new state of the screen
-##        print('up_buy color: ' + str(screen.getpixel(gd.upgrades.cord_buy))) 
-        while screen.getpixel(gd.upgrades.cord_buy) != gd.upgrades.color_buy_on and screen.getpixel(gd.upgrades.cord_buy) != gd.upgrades.color_buy_off: # while the screen isn't fully loaded...
-            print('-the upgrades screen hasn\'t loaded yet') 
-            time.sleep(sleep_newmenu)
-            screen = ss.screenGrab((0, 0, 0, 0))
-##            print('up_buy color: ' + str(screen.getpixel(gd.upgrades.cord_buy)))
-        print('-the upgrades screen has loaded')
+        openMenu("upgrades")
 
         ms.setMousePos(gd.upgrades.cord_buy)                                    # hover over the cash upgrade buy button
 ##        print('up_buy color: ' + str(screen.getpixel(gd.upgrades.cord_buy)))
@@ -203,12 +224,27 @@ def closePopup():
     ms.clickPos(gd.popup_moon_cord_exit)    # UNVERIFIED if moon will draw over hot or insider
     time.sleep(sleep_newmenu)
 
+def investorReset():
+    screen = ss.screenGrab((0,0,0,0))
+
+    if screen.getpixel(gd.investors.cord_open):
+        ms.clickPos(gd.investors.cord_open)         # open the investors menu
+        time.sleep(sleep_newmenu)                   # wait for the screen to update
+
+        ms.clickPos(gd.investors.cord_buy)          # 
+        time.sleep(sleep_newmenu)
+
+        ms.clickPos(gd.investors.cord_confirm_yes)
+        time.sleep(sleep_newmenu)
+        # close menus?
+
 def runLoop():
     setBuyMax()
     ms.leftClick() #----------------------TEMP. SET TO BUY X1
     x = 1
     while True:
         print('loop ' + str(x))
+        # investorReset() # needs testing on whether or not to close menus after reset
         manualRunBusinesses()
         buyCashUpgrades()
         buyManagers()
