@@ -18,33 +18,38 @@ pytesseract.pytesseract.tesseract_cmd = 'C:\\Program Files\\Tesseract-OCR\\tesse
 # normally it wouldn't even capture a single pixel, but there is a catch for this case
 # to print the entire screen instead
 def screenGrab(bbox):
-##    time.sleep(3) # ------------------------DEBUGGING
+##    time.sleep(3)             #
     if bbox == (0, 0, 0, 0):        # if there was no bounding box given...
         image = ImageGrab.grab()        # grab the entire screen
     else:                               # if there was a bounding box given...
         image = ImageGrab.grab(bbox)    # grab the bounding box
 
-    image.save(os.getcwd() + '\\images\\screen_' + str(int(time.time())) + '.png', 'PNG') #-------------------DEBUGGING
+    # image.save(os.getcwd() + '\\images\\screen_' + str(int(time.time())) + '.png', 'PNG')         #
     return image
 
-    
+# WARNING: DOES NOT DO WELL WITH READING ONLY SIGNLE-DIGITS!!!
 def bboxToText(bbox):
-    # image = cv2.imread(imagePath)
+    # imagePath = os.getcwd() + '\\images\\test.png'            #
+    # cv2Image = cv2.imread(imagePath)                  #
     rgbImage = screenGrab(bbox).convert('RGB')  # grab the PIL image and convert it to RGB
     cv2Image = numpy.array(rgbImage)            # convert the RGB image to numpy array so cv2 can read it
 
     grayImage = cv2.cvtColor(cv2Image, cv2.COLOR_RGB2GRAY)
-    grayImage, binaryImage = cv2.threshold(grayImage, 128, 255, cv2.THRESH_BINARY | cv2.THRESH_OTSU)
+    # cv2.imwrite('_grayImage.png', grayImage)          #
+    grayImage, binaryImage = cv2.threshold(grayImage, 180, 255, cv2.THRESH_BINARY) # guide said to use "cv2.THRESH_BINARY | cv2.THRESH_OTSU", but it was ruining everything
     invertedBinaryImage = cv2.bitwise_not(binaryImage)
-##    cv2.imshow('image', invertedBinaryImage)    
+    # cv2.imwrite('_invertedBinaryImage.png', invertedBinaryImage)          #
 
     kernel = numpy.ones((2,1), numpy.uint8)
     erodedImage = cv2.erode(invertedBinaryImage, kernel, iterations=1)
     dilatedImage = cv2.dilate(erodedImage, kernel, iterations=1)
+    # cv2.imwrite('_dilatedImage.png', dilatedImage)           #
 
-    outstring = pytesseract.image_to_string(dilatedImage)
-    print('text: ' + outstring)
+    outstring = pytesseract.image_to_string(dilatedImage) #pytesseract.image_to_string(dilatedImage)
+    # print('text: ' + outstring)           #
+    return outstring
 
 def getBusinessCount(business: gd.Business):
     bbox = business.count_bbox
-    count_image = screenGrab(bbox)
+    count_str = bboxToText(bbox)
+    # print('count_str: ' + count_str)    #

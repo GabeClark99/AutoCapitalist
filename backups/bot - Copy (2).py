@@ -124,7 +124,7 @@ def imgToText(imagePath):
     grayImage = cv2.cvtColor(image, cv2.COLOR_RGB2GRAY)
     grayImage, binaryImage = cv2.threshold(grayImage, 128, 255, cv2.THRESH_BINARY | cv2.THRESH_OTSU)
     invertedBinaryImage = cv2.bitwise_not(binaryImage)
-##    cv2.imshow('image', invertedBinaryImage)    
+    cv2.imshow('image', invertedBinaryImage)    #------------DEBUGGING
 
     kernel = numpy.ones((2,1), numpy.uint8)
     erodedImage = cv2.erode(invertedBinaryImage, kernel, iterations=1)
@@ -414,10 +414,11 @@ def main():
     #buyCashUpgrades()
     #setBuyMax()
     #manualRunBusinesses()
-    pass
+    #pass
 
-##    path = os.getcwd() + '\\images\\lem_cost_bottom.png'
-##    imgToText(path)
+    path = os.getcwd() + '\\..\\images\\test.png'
+    print(path)
+    imgToText(path)
 
 if __name__ == '__main__':
     main()

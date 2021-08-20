@@ -7,7 +7,6 @@ TODO:
 OCR for game data
 -get businesses count
 --gameactions.setBusinessesCount()
----screenstuff.getBusinessCount()
 --calculate time_current from count
 -get buninesses revenue_current
 
@@ -53,26 +52,8 @@ def main():
     #manualRunBusinesses()
     #pass
     # ga.runLoop()
-    getBusinessCount(gd.lemonaide)
-    time.sleep(1)
-    getBusinessCount(gd.newspaper)
-    time.sleep(1)
-    getBusinessCount(gd.car)
-    time.sleep(1)
-    getBusinessCount(gd.pizza)
-    time.sleep(1)
-    getBusinessCount(gd.donut)
-    time.sleep(1)
-    getBusinessCount(gd.shrimp)
-    time.sleep(1)
-    getBusinessCount(gd.hockey)
-    time.sleep(1)
-    getBusinessCount(gd.movie)
-    time.sleep(1)
-    getBusinessCount(gd.bank)
-    time.sleep(1)
-    getBusinessCount(gd.oil)
-
+    # getBusinessCount(gd.newspaper)
+    ga.setBusinessesCount()
 
 if __name__ == '__main__':
     main()
