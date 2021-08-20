@@ -43,17 +43,20 @@ class Business:
 class Menu:
     # constructor
     def __init__(self, cord_open, cord_buy, cord_submenu, cord_confirm_yes, cord_confirm_no, cord_exit, 
-    color_open_on, color_open_off, color_buy_on, color_buy_off):
+    color_open_on, color_open_off, color_buy_on, color_buy_off, color_confirm_yes, color_confirm_no):
         self.cord_open = cord_open
         self.cord_buy = cord_buy
         self.cord_submenu = cord_submenu
         self.cord_confirm_yes = cord_confirm_yes
         self.cord_confirm_no = cord_confirm_no
         self.cord_exit = cord_exit
+
         self.color_open_on = color_open_on
         self.color_open_off = color_open_off
         self.color_buy_on = color_buy_on
         self.color_buy_off = color_buy_off
+        self.color_confirm_yes = color_confirm_yes
+        self.color_confirm_no = color_confirm_no
 
 # ----------------------------------------
 # Global Objects
@@ -73,14 +76,14 @@ businessList = [lemonaide, newspaper, car, pizza, donut, shrimp, hockey, movie, 
 
 
 
-upgrades = Menu ((212, 536),    (778, 641),     (-1, -1),       (-1, -1),   (-1, -1),       (1660, 180), 
-(220, 124, 47),     (116, 106, 98),     (241, 140, 76),     (171, 171, 171))
+upgrades = Menu ((212, 536),    (778, 641),     (952, 333),       (-1, -1),   (-1, -1),       (1660, 180), 
+(220, 124, 47),     (116, 106, 98),     (241, 140, 76),     (171, 171, 171),    (-1, -1, -1),   (-1, -1, -1))
 
-managers = Menu ((212, 621),    (776, 648),     (1030, 320),    (680, 620), (1050, 620),    (1650, 180), 
-(220, 124, 47),     (116, 106, 98),     (143, 188, 211),    (171, 171, 171))
+managers = Menu ((212, 621),    (776, 648),     (1030, 320),    (680, 620), (678, 612),    (1650, 180), 
+(220, 124, 47),     (116, 106, 98),     (143, 188, 211),    (171, 171, 171),    (-1, -1, -1),   (224, 100, 100))
 
 investors = Menu ((212, 704),   (1524, 665),    (-1, -1),       (767, 735), (-1, -1),       (-1, -1), 
-(220, 124, 47),     (-1, -1, -1),       (164, 112, 149),    (164, 112, 149)) # very unfinished, add coordinates and colors
+(220, 124, 47),     (-1, -1, -1),       (164, 112, 149),    (164, 112, 149),    (-1, -1, -1),   (-1, -1, -1)) # very unfinished, add coordinates and colors
 
 # ----------------------------------------
 # Global Functions

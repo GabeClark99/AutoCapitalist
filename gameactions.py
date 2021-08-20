@@ -15,6 +15,7 @@ sleep_newmenu = 0.50 #0.50
 # Global Functions
 # ---------------------------------------------------------
 def buyBusinesses():    
+    gd.businessList.reverse()
     for cur_business in gd.businessList:        # for every business, click on their buy button
         ms.clickPos(cur_business.cord_buy)
         time.sleep(sleep_samemenu)
@@ -32,6 +33,7 @@ def openMenu(menu_name):
             screen = ss.screenGrab((0, 0, 0, 0))
             # print('gd.upgrades.cord_buy color: ' + str(screen.getpixel(gd.upgrades.cord_buy)))
         print('-the upgrades screen has loaded')            #-------------DEBUGGING
+        time.sleep(sleep_newmenu)
 
     elif menu_name == "managers":
         ms.clickPos(gd.managers.cord_open)
@@ -45,6 +47,7 @@ def openMenu(menu_name):
             screen = ss.screenGrab((0, 0, 0, 0))
             # print('gd.managers.cord_buy color: ' + str(screen.getpixel(gd.managers.cord_buy)))   
         print('-the managers screen has loaded')            #-----------DEBUGGING
+        time.sleep(sleep_newmenu)
 
     elif menu_name == "investors":
         ms.clickPos(gd.investors.cord_open)
@@ -57,21 +60,23 @@ def openMenu(menu_name):
             screen = ss.screenGrab((0, 0, 0, 0))
             # print('gd.investors.cord_buy color color: ' + str(screen.getpixel(gd.investors.cord_buy)))   
         print('-the investors screen has loaded')            #-----------DEBUGGING
+        time.sleep(sleep_newmenu)
 
 
     else:
         print("-----ERROR (ss.checkMenuOpen): INVALID MENU NAME-----")
 
-def buyManagers():
+def buyCashManagers():
     screen = ss.screenGrab((0,0,0,0))
 
 ##    print('ma_menu color: ' + str(screen.getpixel(gd.managers.cord_open)))   
-    if screen.getpixel(gd.managers.cord_open) == gd.managers.color_open_on or True:      # if the managers menu icon is orange... #----------DEBUGGING
+    if screen.getpixel(gd.managers.cord_open) == gd.managers.color_open_on:      # if the managers menu icon is orange... 
         print('THERE ARE MANAGERS TO BUY')
         openMenu("managers")
+        screen = ss.screenGrab((0,0,0,0))
         
         ms.setMousePos(gd.managers.cord_buy)                                    # hover over the manager buy icon
-##        print('ma_buy color: ' + str(screen.getpixel(gd.managers.cord_buy))) 
+        print('managers.cord_buy color: ' + str(screen.getpixel(gd.managers.cord_buy)))     #-----------DEBUGGING
         while screen.getpixel(gd.managers.cord_buy) == gd.managers.color_buy_on:      # while the first cash manager in the list's buy icon is blue...
             ms.leftClick()                                             # click on the first cash manager in the list's buy icon
             print('-bought a cash manager!')
@@ -79,27 +84,6 @@ def buyManagers():
             screen = ss.screenGrab((0, 0, 0, 0))                                   # grab the new state of the screen, and repeat
 ##            print('ma_buy color: ' + str(screen.getpixel(gd.managers.cord_buy))) 
         print('-no more cash managers to buy')                       # now there are no more cash managers left to buy
-            
-##        ms.setMousePos(gd.managers.cord_submenu)                                  # hover over the angel managers icon
-##        ms.leftClick()                                                 # click on the angel managers icon
-##        
-##        screen = screenGrab((0, 0, 0, 0))                                       # grab the new state of the screen
-##        ms.setMousePos(gd.managers.cord_buy)
-####        print('ma_buy color: ' + str(screen.getpixel(gd.managers.cord_buy))) 
-##        while screen.getpixel(gd.managers.cord_buy) == (143, 188, 211):      # while the first angel manager in the list's buy icon is blue...
-##            ms.leftClick()                                             # click on the first angel manager in the list's buy icon
-##            print('bought an angel manager!')
-##            time.sleep(sleeptime)                                   # wait for the screen to update
-##            screen = screenGrab((0, 0, 0, 0))                                   # grab the new state of the screen
-####            print('ma_buy color: ' + str(screen.getpixel(gd.managers.cord_buy))) 
-##
-####            print('ma_buy_confirm_no color: ' + str(screen.getpixel(gd.managers.cord_buy_confirm_no)))   
-##            if screen.getpixel(gd.managers.cord_buy_confirm_no) == (224, 100, 100):  # if the game asks us to confirm our purchase...
-##                ms.setMousePos(gd.managers.cord_buy_confirm_no)                         # hover over the 'No' button
-##                ms.leftClick()                                                 # click on the 'No' button
-##                print('clicked no!')
-##                break                                                       # stop purchasing angel managers
-##        print('no more angel managers to buy')                              # now there are no more angel managers left to buy
         
         ms.setMousePos(gd.managers.cord_exit) # hover over the managers menu exit icon
         ms.leftClick() # click on the managers menu exit icon
@@ -116,6 +100,7 @@ def buyCashUpgrades():
     if screen.getpixel(gd.upgrades.cord_open) == gd.upgrades.color_open_on:       # if the upgrade menu button is orange...
         print('THERE ARE UPGRADES TO BUY')
         openMenu("upgrades")
+        screen = ss.screenGrab((0,0,0,0))
 
         ms.setMousePos(gd.upgrades.cord_buy)                                    # hover over the cash upgrade buy button
 ##        print('up_buy color: ' + str(screen.getpixel(gd.upgrades.cord_buy)))
@@ -224,19 +209,81 @@ def closePopup():
     ms.clickPos(gd.popup_moon_cord_exit)    # UNVERIFIED if moon will draw over hot or insider
     time.sleep(sleep_newmenu)
 
+# performs reset for angel investors
+# buys angel managers
+# buys angel upgrades TODO
 def investorReset():
     screen = ss.screenGrab((0,0,0,0))
 
-    if screen.getpixel(gd.investors.cord_open):
-        ms.clickPos(gd.investors.cord_open)         # open the investors menu
-        time.sleep(sleep_newmenu)                   # wait for the screen to update
+    if screen.getpixel(gd.investors.cord_open) == gd.investors.color_open_on:
+        # --------------------------------------------------------
+        # Reset game and recieve angels
+        # --------------------------------------------------------
+        openMenu("investors")
 
-        ms.clickPos(gd.investors.cord_buy)          # 
+        ms.clickPos(gd.investors.cord_buy)          
         time.sleep(sleep_newmenu)
 
         ms.clickPos(gd.investors.cord_confirm_yes)
+        time.sleep(5)       # the congratulations splash lasts a while
+        
+        ms.clickPos(gd.investors.cord_exit)     # go back to main menu
         time.sleep(sleep_newmenu)
-        # close menus?
+
+        # --------------------------------------------------------
+        # Buy angel managers
+        # --------------------------------------------------------
+        openMenu("managers")                    # open managers menu
+        ms.clickPos(gd.managers.cord_submenu)   # open angel managers submenu
+        time.sleep(sleep_newmenu)
+        screen = ss.screenGrab((0, 0, 0, 0))                                       # grab the new state of the screen
+        ms.setMousePos(gd.managers.cord_buy)
+        # print('ma_buy color: ' + str(screen.getpixel(gd.managers.cord_buy))) 
+        while screen.getpixel(gd.managers.cord_buy) == gd.managers.color_buy_on:      # while the first angel manager in the list's buy icon is blue...
+            ms.leftClick()                                             # click on the first angel manager in the list's buy icon
+            print('clicked an angel manager!')
+            time.sleep(sleep_newmenu)                                   # wait for the screen to update, could possibly open new menu for confirm
+            screen = ss.screenGrab((0, 0, 0, 0))                                   # grab the new state of the screen
+            # print('ma_buy color: ' + str(screen.getpixel(gd.managers.cord_buy))) 
+
+            # print('managers.cord_confirm_no color: ' + str(screen.getpixel(gd.managers.cord_confirm_no)))   
+            if screen.getpixel(gd.managers.cord_confirm_no) == gd.managers.color_confirm_no:  # if the game asks us to confirm our purchase...
+                ms.setMousePos(gd.managers.cord_confirm_no)                         # hover over the 'No' button
+                ms.leftClick()                                                 # click on the 'No' button
+                print('clicked no!')                #------------DEBUGGING
+                break                                                       # stop purchasing angel managers
+        print('no more angel managers to buy')                              # now there are no more angel managers left to buy
+    
+        ms.clickPos(gd.managers.cord_exit)
+        time.sleep(sleep_newmenu)
+        print('-exited the managers menu!')
+
+        # --------------------------------------------------------
+        # Buy angel upgrades
+        # --------------------------------------------------------
+        openMenu("upgrades")
+        ms.clickPos(gd.upgrades.cord_submenu)   # open angel upgrades submenu
+        time.sleep(sleep_newmenu)
+
+        screen = ss.screenGrab((0, 0, 0, 0))                                       # grab the new state of the screen
+        ms.setMousePos(gd.upgrades.cord_buy)
+        while screen.getpixel(gd.upgrades.cord_buy) == gd.upgrades.color_buy_on:      # while the first angel manager in the list's buy icon is blue...
+            ms.leftClick()                                             # click on the first angel manager in the list's buy icon
+            print('clicked an angel upgrade!')
+            time.sleep(sleep_newmenu)                                   # wait for the screen to update, could possibly open new menu for confirm
+            screen = ss.screenGrab((0, 0, 0, 0))                                   # grab the new state of the screen
+
+            # -----------------NEED TO GET CONFIRM MENU CORDS AND COLORS---------------
+            if screen.getpixel(gd.upgrades.cord_confirm_no) == gd.upgrades.color_confirm_no:  # if the game asks us to confirm our purchase...
+                ms.setMousePos(gd.upgrades.cord_confirm_no)                         # hover over the 'No' button
+                ms.leftClick()                                                 # click on the 'No' button
+                print('clicked no!')                #------------DEBUGGING
+                break                                                       # stop purchasing angel upgrades
+            print('no more angel upgrades to buy')                              # now there are no more angel upgrades left to buy
+
+            ms.clickPos(gd.upgrades.cord_exit)
+            time.sleep(sleep_newmenu)
+            print('-exited the upgrades menu!')
 
 def runLoop():
     setBuyMax()
@@ -244,13 +291,14 @@ def runLoop():
     x = 1
     while True:
         print('loop ' + str(x))
-        # investorReset() # needs testing on whether or not to close menus after reset
+        ss.popupCheck()
+        investorReset() # needs testing for closing menus and buying angel upgrades (angel managers should be good)
         manualRunBusinesses()
         buyCashUpgrades()
-        buyManagers()
+        buyCashManagers()
         buyBusinesses()
         x = x + 1
-        if x % 100 == 0:
-            print('SLEEPING FOR 2m')
-            time.sleep(2*60)
+        if x % 200 == 0:
+            print('SLEEPING FOR 1m')
+            time.sleep(1*60)
 # ---------------------------------------------------------
