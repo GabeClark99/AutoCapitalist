@@ -3,7 +3,7 @@ import time
 import win32api, win32con
 
 # ---------------------------------------------------------
-# Mouse Clicks
+# Global Functions
 # ---------------------------------------------------------
 def leftClick():
     win32api.mouse_event(win32con.MOUSEEVENTF_LEFTDOWN,0,0)
@@ -21,8 +21,10 @@ def leftClick():
 ##    time.sleep(sleeptime)
 ####    print ("left up")
     
-# ---------------------------------------------------------
-# Mouse Position
-# ---------------------------------------------------------
 def setMousePos(cord):
     win32api.SetCursorPos(cord)
+
+# combination of setMousePos() and leftClick()
+def clickPos(cord):
+    setMousePos(cord)
+    leftClick()
