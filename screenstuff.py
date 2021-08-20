@@ -56,8 +56,9 @@ def getBusinessCount(business: gd.Business):
     # print('count_str: ' + count_str)    #
 
 # will also trigger on any menu being open
-# only call when all menus are closed
+# should only call this function when all menus are closed
 def popupCheck():
     screen = screenGrab((0,0,0,0))
     if screen.getpixel(gd.popupcheck_cord) != gd.popupcheck_color_nopopup or True: #-------DEBUGGING
         ga.closePopup()
+
