@@ -9,6 +9,11 @@ import screenstuff as ss
 time_multiplier_global = 1.0            # this is halved when all businesses reach a time milestone
 increment_max_cord = (1630, 140)        # location of the increment button, well as the pixel that is white only when MAX is selected
 increment_max_color_enabled = (240, 233, 226)
+popupcheck_cord = (1042, 671)              # used to check this location and its color to determine if there is a popup on the screen
+popupcheck_color_nopopup = (115, 105, 96)           # control color used to check if there is a popup
+popup_hot_cord_exit = (1321, 180)
+popup_insider_cord_exit = (1260, 290)
+popup_moon_cord_exit = (1312, 295)
 
 # ----------------------------------------
 # Classes
