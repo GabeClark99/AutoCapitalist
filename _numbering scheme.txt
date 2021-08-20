@@ -1,0 +1,16 @@
+Firstly, there are (at least) two different naming conventions for "-illion" words. In some parts of the world, a "billion" is one thousand million; whereas, in other parts, a "billion" is one million million. This, as you might imagine, often leads to confusion when folks across the world are playing games that make an assumption on the terminology. For AdVenture Capitalist, the "-illion" naming convention in-game follows the smaller scale, where one thousand million is one billion.
+
+When reading an "-illion", the prefixes indicate the ones and tens digits of a number. For instance, "duotrigintillion" is two (duo-) plus thirty (trigint-). Mathematically speaking, this is equivalent to 100032 + 1. Why the "+ 1" you might ask? Well, that's because a "million" is 10002, which means there is an extra thousand that is not part of the naming.
+
+By reading the numbers, you can reason the relative magnitude of two "-illions". For instance, a vigintillion (20) is one thousand times greater than a novemdecillion (19), but it is one thousand times less than an unvigintillion (21).
+
+Prefix	Number	Prefix	Number
+un- / m-		1	dec-		10
+duo- / b-		2	vigint-		20
+tr(es)-			3	trigint-	30
+quattuor- / quadr-	4	quadrigint-	40
+quin(t)-		5	quinquagint-	50
+sex(t)-			6	sexagint-	60
+sept(en)-		7	septuagint-	70
+oct(o)-			8	octogint-	80
+novem- / non-		9	nonagint-	90
