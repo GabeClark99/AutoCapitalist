@@ -6,13 +6,11 @@ Window Resolution: 1920x1080 native, 1600x900 window
 TODO:
 OCR for game data
 -get businesses count
---gameactions.setBusinessesCount()
 --calculate time_current from count
 -get buninesses revenue_current
 
--calculate cash per second
---get cash per cycle
---calculate speed from number of this business as well as total businesses
+-calculate revenue per second
+--get revenue per cycle
 
 add more game data
 -earth revenue upgrades
@@ -50,10 +48,12 @@ def main():
     #buyCashUpgrades()
     #setBuyMax()
     #manualRunBusinesses()
-    #pass
+    # pass
     # ga.runLoop()
     # getBusinessCount(gd.newspaper)
-    ga.setBusinessesCount()
+    gd.setBusinessesCount()
+    gd.setTimeMultipliers()
+    # screenGrab((0, 0, 0, 0))
 
 if __name__ == '__main__':
     main()

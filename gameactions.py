@@ -236,19 +236,6 @@ def manualRunBusinesses():
         ms.leftClick()
         time.sleep(sleep_samemenu)
 
-def setBusinessesCount():
-    # # lemonaide
-    # bbox = gd.lemonaide.count_bbox
-    # count_str = ss.bboxToText(bbox)
-    # gd.lemonaide.count = int(count_str)
-    # # print(gd.lemonaide.count)             #
-
-    for cur_business in gd.businessList:
-        bbox = cur_business.count_bbox
-        count_str = ss.bboxToText(bbox)
-        cur_business.count = int(count_str)
-        print(cur_business.count)           #-------------DEBUGGING
-
 def runLoop():
     setBuyMax()
     ms.leftClick() #----------------------TEMP. SET TO BUY X1
